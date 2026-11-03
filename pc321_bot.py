@@ -226,6 +226,19 @@ def send_images(cid, imgs, markup=None):
         tg_send_photo(cid, img, markup)
 
 
+import re as _re
+
+
+def _norm_args(raw):
+    p = raw.split(None, 1)
+    if len(p) < 2:
+        return raw
+    a = _re.sub(r"(\d{4})[-/.](\d{1,2})(?:[-/.](\d{1,2}))?",
+                lambda m: f"{m[1]}-{int(m[2]):02d}" + (f"-{int(m[3]):02d}" if m[3] else ""),
+                p[1])
+    return p[0] + " " + a
+
+
 def main():
     if not TOKEN:
         raise SystemExit(f"TG_TOKEN topilmadi. {ENV_FILE.name} fayliga tokenni yozing.")
@@ -328,6 +341,7 @@ def main():
             else:
                 msg = upd.get("message") or {}
             raw = (msg.get("text") or "").strip()
+            raw = _norm_args(raw)
             text = raw.lower()
             cid = str((msg.get("chat") or {}).get("id", ""))
             if not text or not cid:
