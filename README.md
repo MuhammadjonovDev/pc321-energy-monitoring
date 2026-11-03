@@ -51,4 +51,6 @@ python3 -m venv venv
 source venv/bin/activate
 
 pip install -r requirements.txt
+```
+<a href="https://t.me/@comressor_test_bot"><img src="https://img.shields.io/badge/Mening_botim-26A5E4?style=flat-square&logo=telegram&logoColor=white" /></a>
 
