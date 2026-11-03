@@ -1,0 +1,26 @@
+# Secrets
+.env
+.env.*
+!.env.example
+devices.json
+tinytuya.json
+
+# User and runtime data
+daily_env.json
+daily_env.json.*
+snapshot.json
+subscribers_env.json
+
+# Backups
+*.bak*
+*.eski
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Database
+*.sql
+*.dump
