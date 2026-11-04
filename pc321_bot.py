@@ -9,7 +9,7 @@ import tinytuya
 from pc321_db import save_reading
 
 from datetime import date
-from rasm import day_images, month_images
+from rasm import day_images, month_images, year_images
 from hodisa import check_events, init_events, events_report, set_offline
 from grafik import hodisa_images
 from uskuna import uskuna_info
@@ -402,6 +402,15 @@ def main():
             if text.startswith("/hodisalar"):
                 parts = raw.split()
                 send_images(cid, hodisa_images(parts[1] if len(parts) > 1 else None))
+                continue
+            if text.startswith("/yillik"):
+                parts = raw.split()
+                try:
+                    send_images(cid, year_images(parts[1] if len(parts) > 1 else None))
+                except ValueError:
+                    tg_send(cid, "Format: /yillik yoki /yillik 2026")
+                except Exception as e:
+                    tg_send(cid, f"Hisobotda xato: {e}")
                 continue
             if text.startswith("/oy"):
                 parts = raw.split()

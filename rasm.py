@@ -99,3 +99,34 @@ def month_images(arg=None):
     tc = sum(v[1] for v in days.values())
     return [render(f"{year}-{month:02d} oyi", ["Sana", "kWh", "So'm"], tr,
                    ["JAMI", f"{tk:.2f}", money(tc)])]
+
+
+def year_images(arg=None):
+    now = dt.datetime.now(TZ)
+    try:
+        year = int(arg) if arg else now.year
+    except ValueError:
+        raise ValueError("yil noto'g'ri")
+    if not 2000 <= year <= 2100:
+        raise ValueError("yil noto'g'ri")
+    start = dt.datetime(year, 1, 1, tzinfo=TZ)
+    end = dt.datetime(year + 1, 1, 1, tzinfo=TZ)
+    with _connect().cursor() as cur:
+        cur.execute(SQL, (start, end))
+        rows = cur.fetchall()
+    if not rows:
+        return []
+    names = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul",
+             "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"]
+    months = {}
+    for hr, kwh in rows:
+        k = float(kwh or 0)
+        m = months.setdefault(hr.month, [0.0, 0.0])
+        m[0] += k
+        m[1] += k * band_for_hour(hr.hour)[1]
+    tr = [[names[m - 1], f"{k:,.0f}".replace(",", " "), money(c)]
+          for m, (k, c) in sorted(months.items())]
+    tk = sum(v[0] for v in months.values())
+    tc = sum(v[1] for v in months.values())
+    return [render(f"{year} yil", ["Oy", "kWh", "So'm"], tr,
+                   ["JAMI", f"{tk:,.0f}".replace(",", " "), money(tc)])]
