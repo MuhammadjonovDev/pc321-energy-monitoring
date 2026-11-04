@@ -255,6 +255,12 @@ def _norm_args(raw):
     return p[0] + " " + a
 
 
+def _now_tk():
+    import datetime as _dt
+    from zoneinfo import ZoneInfo
+    return _dt.datetime.now(ZoneInfo("Asia/Tashkent")).strftime("%d.%m.%Y %H:%M")
+
+
 def main():
     if not TOKEN:
         raise SystemExit(f"TG_TOKEN topilmadi. {ENV_FILE.name} fayliga tokenni yozing.")
@@ -339,7 +345,7 @@ def main():
 
         if REPORT_MINUTES > 0 and subs and ok and time.time() - last_report >= REPORT_MINUTES * 60:
             total = get(state, TOTAL)
-            text = "📊 Avtomatik hisobot\n" + status_text(state, daily_usage(total))
+            text = "📊 Avtomatik hisobot, " + _now_tk() + "\n" + status_text(state, daily_usage(total))
             if total is not None and mark_total is not None:
                 text += f"\nO'zgarish ({mark_time} dan beri): +{total - mark_total:.2f} kWh"
             broadcast(text)
