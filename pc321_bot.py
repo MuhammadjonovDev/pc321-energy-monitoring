@@ -134,6 +134,22 @@ def daily_usage(total):
     try:
         import datetime as _dt
         from zoneinfo import ZoneInfo
+        from tarif import hourly_kwh
+        today = _dt.datetime.now(ZoneInfo("Asia/Tashkent")).date()
+        data = hourly_kwh(today)
+        if data:
+            return sum(data.values())
+    except Exception as e:
+        print("Kunlik sarf tarifdan olinmadi:", e)
+    return _daily_usage_db(total)
+
+
+def _daily_usage_db(total):
+    if total is None:
+        return None
+    try:
+        import datetime as _dt
+        from zoneinfo import ZoneInfo
         from pc321_db import _connect
         tz = ZoneInfo("Asia/Tashkent")
         day0 = _dt.datetime.combine(_dt.datetime.now(tz).date(), _dt.time.min, tzinfo=tz)
