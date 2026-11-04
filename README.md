@@ -32,6 +32,7 @@ Sexda 2 ta Kaeser kompressori mavjud. Har bir kompressor 132 kW quvvatga ega.
 | `/hodisalar` | Hodisalar tarixi |
 | `/xulosa` | Tahliliy xulosa |
 | `/uskuna` | Uskuna ma’lumotlari |
+| `/yillik` | Yillik hisobot |
 
 ## Texnologiyalar
 
