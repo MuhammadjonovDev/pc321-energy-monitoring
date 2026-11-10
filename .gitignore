@@ -24,3 +24,18 @@ venv/
 # Database
 *.sql
 *.dump
+.env
+devices.json
+devices.json.*
+tinytuya.json
+snapshot.json
+tuya-raw.json
+subscribers_env.json
+daily_env.json
+*.sql
+*.enc
+*.bak
+venv/
+__pycache__/
+*.pyc
+zaxira/
