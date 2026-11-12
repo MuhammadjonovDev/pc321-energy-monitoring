@@ -12,7 +12,7 @@ from datetime import date
 from rasm import day_images, month_images, year_images
 from hodisa import check_events, init_events, events_report, set_offline
 from grafik import hodisa_images
-from uskuna import uskuna_info
+from uskuna import uskuna_info, uskuna_send
 from xulosa import xulosa_images
 from kompressor import kompressor_report
 
@@ -419,7 +419,7 @@ def main():
                     tg_send(cid, f"Hisobotda xato: {e}")
                 continue
             if text.startswith("/uskuna"):
-                tg_send(cid, uskuna_info())
+                uskuna_send(cid)
                 continue
             if text.startswith("/hodisalar"):
                 parts = raw.split()
