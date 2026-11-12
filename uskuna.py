@@ -9,7 +9,7 @@ TEXT = """ To'quv sexi: havo tizimi
 
 Kompressorlar: 2 ta, bir xil quvvat, har biri 132 kVt
 Model: Kaeser DSD 240 T
-Inv raqami: —
+Inv raqami: — Kompressor 1 
 Xarid narxi: 46 500 €
 Ishga tushirilgan muddati: 2021 yil, oktyabr
 Ishlab chiqaruvchi: Kaeser
