@@ -39,3 +39,4 @@ venv/
 __pycache__/
 *.pyc
 zaxira/
+uskuna_media/*.mp4
