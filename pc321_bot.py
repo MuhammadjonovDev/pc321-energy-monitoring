@@ -418,6 +418,17 @@ def main():
                 except Exception as e:
                     tg_send(cid, f"Hisobotda xato: {e}")
                 continue
+            if text == "/id" or text.startswith("/id@"):
+                tg_send(cid, f"Sizning chat ID: {cid}")
+                continue
+            if text.startswith("/narx"):
+                try:
+                    from tarif_admin import narx_command
+                    tg_send(cid, narx_command(cid, text), html=True)
+                except Exception as e:
+                    print("narx xatosi:", e)
+                    tg_send(cid, "Xatolik, keyinroq urinib ko'ring.")
+                continue
             if text.startswith("/uskuna"):
                 uskuna_send(cid)
                 continue

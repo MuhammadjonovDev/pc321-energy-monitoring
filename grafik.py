@@ -114,7 +114,7 @@ def hodisa_images(arg=None):
         if st == 1:
             kwh = w0 * gap / 3.6e6
             idle_kwh += kwh
-            idle_cost += kwh * band_for_hour(h)[1]
+            idle_cost += kwh * band_for_hour(h, t0.date())[1]
         if st == 0:
             if stops and stops[-1][1] == t0:
                 stops[-1][1] = t1

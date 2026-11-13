@@ -56,7 +56,7 @@ def day_images(day=None):
         if h not in data:
             continue
         kwh = data[h]
-        name, price = band_for_hour(h)
+        name, price = band_for_hour(h, day)
         cost = kwh * price
         rows.append([f"{h:02d}-{(h + 1) % 24:02d}", str(price), f"{kwh:.2f}", money(cost)])
         b = bands.setdefault(name, [0.0, 0.0, price])
@@ -93,7 +93,7 @@ def month_images(arg=None):
         kwh = float(kwh or 0)
         d = days.setdefault(hr.date(), [0.0, 0.0])
         d[0] += kwh
-        d[1] += kwh * band_for_hour(hr.hour)[1]
+        d[1] += kwh * band_for_hour(hr.hour, hr.date())[1]
     tr = [[day.strftime("%d.%m"), f"{k:.2f}", money(c)] for day, (k, c) in sorted(days.items())]
     tk = sum(v[0] for v in days.values())
     tc = sum(v[1] for v in days.values())
@@ -123,7 +123,7 @@ def year_images(arg=None):
         k = float(kwh or 0)
         m = months.setdefault(hr.month, [0.0, 0.0])
         m[0] += k
-        m[1] += k * band_for_hour(hr.hour)[1]
+        m[1] += k * band_for_hour(hr.hour, hr.date())[1]
     tr = [[names[m - 1], f"{k:,.0f}".replace(",", " "), money(c)]
           for m, (k, c) in sorted(months.items())]
     tk = sum(v[0] for v in months.values())

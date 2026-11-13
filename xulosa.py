@@ -26,8 +26,8 @@ def d(x):
     return f"{m} daqiqa" if m else f"{x} soniya"
 
 
-def cost(data):
-    return sum(k * band_for_hour(h)[1] for h, k in data.items())
+def cost(data, day=None):
+    return sum(k * band_for_hour(h, day)[1] for h, k in data.items())
 
 
 def parse_day(arg, today):
@@ -123,9 +123,9 @@ def data(day):
         "stop": d(stop), "stop_s": stop,
         "p_label": p_label, "p_val": p_val, "p_note": p_note,
         "s_label": s_label, "m_label": m_label,
-        "kwh": sum(day_data.values()), "som": cost(day_data), "pct": pct,
+        "kwh": sum(day_data.values()), "som": cost(day_data, day), "pct": pct,
         "mkwh": sum(float(k or 0) for _, k in month_rows),
-        "msom": sum(float(k or 0) * band_for_hour(h.hour)[1] for h, k in month_rows),
+        "msom": sum(float(k or 0) * band_for_hour(h.hour, h.date())[1] for h, k in month_rows),
         "n_ev": n_ev,
         "unseen": d(max((min(now, day1) - day0).total_seconds() - covered, 0)),
     }

@@ -28,12 +28,7 @@ ORDER BY hr
 """
 
 
-def band_for_hour(h):
-    hh = h + 24 if h < 6 else h
-    for start, end, price, name in BANDS:
-        if start <= hh < end:
-            return name, price
-    return "?", 0
+from tarif_data import band_for_hour  # noqa: E402
 
 
 def hourly_kwh(day):
@@ -63,7 +58,7 @@ def report(day=None):
         kwh = data.get(h)
         if kwh is None:
             continue
-        name, price = band_for_hour(h)
+        name, price = band_for_hour(h, day)
         cost = kwh * price
         lines.append(f"{h:02d}-{(h + 1) % 24:02d}  {kwh:6.2f}  {money(cost):>7}")
         b = bands.setdefault(name, [0.0, 0.0, price])
@@ -92,7 +87,7 @@ def month_report(year, month):
     days = {}
     for hr, kwh in rows:
         kwh = float(kwh or 0)
-        price = band_for_hour(hr.hour)[1]
+        price = band_for_hour(hr.hour, hr.date())[1]
         d = days.setdefault(hr.date(), [0.0, 0.0])
         d[0] += kwh
         d[1] += kwh * price
